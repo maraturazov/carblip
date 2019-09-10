@@ -1,0 +1,41 @@
+<ng-template #smsVerificationModal let-modal let-c="close" let-d="dismiss" class="modal fade sms-modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" id="promoModal">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title promo-head-text">SMS Verification</h4>
+        <a class="close" data-dismiss="modal" (click)="modalClose()"><img src="../../../assets/img/ic-close.png" srcset="../../../assets/img/ic-close@2x.png 2x,
+          ../../../assets/img/ic-close@3x.png 3x"
+            class="ic_close"></a>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="msg-label">
+          <p>Please type the verification code sent to
+            {{'+1' + formValue?.phone}}
+          </p>
+        </div>
+        <div class="text-center">
+          <img src="../../../assets/img/img-sms-verification.png" srcset="../../../assets/img/img-sms-verification@2x.png 2x, img/img-sms-verification@3x.png 3x"
+            class="img_sms_verification">
+
+          <form #verifyCodeForm="ngForm" id="promo-form" [formGroup]="otpForm">
+            <div class="input-group verify-code-input">
+              <input type="text" class="form-control" formControlName="otp1" (keyup)="autoFocusInputField($event)" maxlength="1" required>
+              <input type="text" class="form-control" formControlName="otp2" (keyup)="autoFocusInputField($event)" maxlength="1" required>
+              <input type="text" class="form-control" formControlName="otp3" (keyup)="autoFocusInputField($event)" maxlength="1" required>
+              <input type="text" class="form-control" formControlName="otp4" (keyup)="autoFocusInputField($event)" maxlength="1" required>
+              <input type="text" class="form-control" formControlName="otp5" (keyup)="autoFocusInputField($event)" maxlength="1" required>
+            </div>
+          </form>
+          <button type="submit" [disabled]="verifyCodeForm.invalid" class="btn btn-secondary ml-auto mr-auto d-block next-btn" data-toggle="modal" (click)="verifyPhone()">Submit</button>
+          <p class="dont-receive-label ">Didn’t receive the code?</p>
+          <a class="resend-link">Re-send Code</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-template>

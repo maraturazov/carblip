@@ -1,0 +1,129 @@
+<section class="container-fluid request-page px-0">
+  <div class="cb-container container">
+    <div class="row mx-0">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-content px-sm-0 px-md-0">
+        <div class="row mx-0">
+          <div class="col-lg-8 col-md-7 col-sm-12 col-12 pr-0  order-lg-2  order-md-2 product-desc">
+            <div class="row mx-0 product-title">
+              <div class="text-left px-0">
+                <p class="title text-uppercase">{{selectedBrandName}} {{selectedModelInfo?.name}}</p>
+              </div>
+              <div class="text-right msrp-div">
+                <p class="amount ml-auto mr-0">
+                  <span class="triange-sect"></span>
+                  <span>{{selectedModelInfo?.minPrice | currency}}</span>
+                  <span class="text-capitalize sub">Starting MSRP</span>
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <ul class="product-specs">
+                  <li>
+                    <div class="item">
+                      <p class="item-label text-capitalize mb-0">year</p>
+                      <p class="item-value text-uppercase mb-0">{{selectedTrim?.year}}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item">
+                      <p class="item-label text-capitalize mb-0">make</p>
+                      <p class="item-value text-uppercase mb-0">{{selectedBrandName}}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item">
+                      <p class="item-label text-capitalize mb-0">model</p>
+                      <p class="item-value text-uppercase mb-0">{{selectedModelInfo?.name}}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item">
+                      <p class="item-label text-capitalize mb-0">trim</p>
+                      <p class="item-value text-uppercase mb-0">{{selectedTrim?.name}}</p>
+                    </div>
+                  </li>
+                </ul>
+                <div class="clearfix"></div>
+                <div class="color-sub-section">
+                  <div class="color-selection">
+                    <div class="ext-color">
+                      <legend class="">Exterior color</legend>
+                      <ng-container *ngFor="let color of selectedExteriorColors">
+                        <div class="circle" [ngStyle]="{'background-color': '#' + color.color_hex_code.toString()}">
+                        </div>
+                      </ng-container>
+                    </div>
+                    <div class="int-color">
+                      <div class="int-color">
+                        <legend class="">Interior color</legend>
+                        <ng-container *ngFor="let color of selectedInteriorColors">
+                          <div class="circle" [ngStyle]="{'background-color': '#' + color.color_hex_code.toString()}">
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+            <div class="row mx-0">
+              <div class="col-md-12">
+                <div class="img-container d-flex">
+                  <img [src]="backgroundImage$ | async" class="image" (load)="loadImage($event)" [class.d-none]="!loaded">
+                  <i class="fa fa-spin fa-spinner lazy-loading" *ngIf="!loaded"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-5 col-sm-12 col-12 order-lg-1 order-md-1 product-filters">
+            <form class="register-form">
+              <div class="form-group form-head-text d-none d-md-block">
+                Thanks, <span [ngStyle]="{'font-weight': 'bold'}">{{userName}}</span>! Here's the information you've
+                provided for your new car.
+              </div>
+              <div class="form-group">
+                <label class="form-label mb-0" for="exampleFormControlSelect1 form-label">Do you currently have a
+                  car?</label>
+                <p>{{ownCar[request?.user_car_information.own_a_car].label}}</p>
+              </div>
+              <div class="form-group" *ngIf="request?.user_car_information.own_a_car===0">
+                <label class="form-label mb-0" for="exampleFormControlSelect1 form-label">Do you plan to
+                  trade-in?</label>
+                <p>{{willTrade[request?.user_car_information.will_trade].label}}</p>
+              </div>
+              <div class="form-group" *ngIf="request?.user_car_information.own_a_car===0 && request?.user_car_information.will_trade===0">
+                <label class="form-label" for="exampleFormControlSelect1 form-label">Please add your car’s
+                  details!</label>
+                <div class="select-year inner-select-value form-group">
+                  <label class="form-label" for="exampleFormControlSelect1 form-label">YEAR</label>
+                  <p>{{request?.user_car_information.year}}</p>
+                </div>
+                <div class="select-year inner-select-value form-group">
+                  <label class="form-label" for="exampleFormControlSelect1 form-label">MAKE</label>
+                  <p>{{brandName}}</p>
+                </div>
+                <div class="select-year inner-select-value form-group">
+                  <label class="form-label" for="exampleFormControlSelect1 form-label">MODEL</label>
+                  <p>{{modelName}}</p>
+                </div>
+                <div class="select-year inner-select-value">
+                  <label class="form-label" for="exampleFormControlSelect1 form-label">MILES</label>
+                  <p>{{formatUSNumber(request?.user_car_information.miles)}}</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label mb-0" for="exampleFormControlSelect1 form-label">Credit Assesment</label>
+                <p>{{creditInfo[request?.credit_score].label}} ({{creditInfo[request?.credit_score].score}})</p>
+              </div>
+              <div class="form-complete-msg" [ngStyle]="{'font-weight': 'bold'}">Someone from our team will be in touch
+                shortly to help you with the next
+                steps.</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

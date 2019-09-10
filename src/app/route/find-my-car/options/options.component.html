@@ -1,0 +1,35 @@
+<section class="container-fluid px-0">
+  <div class="cb-container container">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12 px-0">
+      <div id="stepper" class="row mx-0 bs-stepper">
+        <div class="row mx-0 bs-stepper-content p-0">
+          <form onsubmit="return false" class="col-lg-12 col-md-12 col-sm-12 col-12 px-0">
+            <div id="specs-tab" role="tabpanel" class="content preferred-option active dstepper-block" aria-labelledby="stepper1trigger3">
+              <div class="prefer-options-cntnr">
+                <p class="preferred-option-label">Preferred Options<span class="d-none  d-md-inline skip-btn"><a (click)="goToNextStep()">Skip</a></span></p>
+                <div class="row preferred-value">
+                  <div *ngFor="let column of getColumns(); let i = index" class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="form-check cb-check pl-0">
+                      <ng-container *ngFor="let option of getColumn(this.options$ | async, i); let j = index">
+                        <input class="form-check-input styled-checkbox" id="option-{{i * 4 + j + 1}}" type="checkbox" [checked]="selectionStatus[i * 4 + j]" (change)="onCheckOption($event, option.id)">
+                        <label class="form-check-label styled-checkbox-2 text-capitalize" for="option-{{i * 4 + j + 1}}">
+                          {{option.label}}
+                        </label>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="row mx-0">
+          <div class="col-sm-12 col-xs-12 d-block text-center d-md-none px-0">
+            <a class="btn add-items-btn btn-block text-capitalize" (click)="goToNextStep()">Save </a>
+            <a class="skip-link btn-block" (click)="goToNextStep()">Skip</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

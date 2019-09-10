@@ -1,0 +1,48 @@
+<section class="container-fluid px-0">
+  <div class="cb-container container">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12 px-0">
+      <div id="color-tab" role="tabpanel" class="content active dstepper-block" aria-labelledby="stepper1trigger3">
+        <div class="color-image-container text-center">
+          <img src="{{backgroundImage}}" class="ic_color_car" [class.d-none]="!imageLoaded">
+          <i class="fa fa-spin fa-spinner lazy-loading" *ngIf="!imageLoaded"></i>
+        </div>
+        <div class="color-tab-container">
+          <tabset class="chooseColor">
+            <tab heading="Exterior Color" id="tab1">
+              <div class="chooseColorContent">
+                <p class="color-select-label">Select up to 3 options. You can change this later.</p>
+                <div class="row color-choice color-selection">
+                  <div class="col-sm-12">
+                    <div class="d-inline-block pr-2" [ngClass]="{'active': selectedExteriorColors.indexOf(item.id) > -1}" *ngFor="let item of exteriorColors$ | async; let i = index">
+                      <input class="checkbox-inline bg-{{item.simple_color}}-check styled-checkbox" id="ext-{{ item.id }}" type="checkbox"
+                        value="black" [checked]="exteriorSelectionStatus[i]" disabled>
+                      <label class="form-check-label text-capitalize" for="ext-{{ item.id }}" (click)="onSelectColor('exterior', item.id, i)">
+                        <span class="background-color-span" [ngStyle] = "{ 'background-image': 'linear-gradient( to right, #' + item.color_hex_code + 'cc, #'+ item.color_hex_code + ')'}"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </tab>
+            <tab heading="Interior Color" id="tab2">
+              <div class="chooseColorContent">
+                <p class="color-select-label">Select up to 3 options. You can change this later.</p>
+                <div class="row color-choice color-selection">
+                  <div class="col-sm-12">
+                    <div class="d-inline-block pr-2" [ngClass]="{'active': selectedInteriorColors.indexOf(item.id) > -1}" *ngFor="let item of interiorColors$ | async; let i = index">
+                      <input class="checkbox-inline bg-{{item.simple_color}}-check styled-checkbox" id="ext-{{ item.id }}" type="checkbox"
+                        value="black" [checked]="interiorSelectionStatus[i]" disabled>
+                      <label class="form-check-label text-capitalize" for="ext-{{ item.id }}" (click)="onSelectColor('interior', item.id, i)">
+                        <span class="background-color-span" [ngStyle] = "{ 'background-image': 'linear-gradient( to right, #' + item.color_hex_code + 'cc, #'+ item.color_hex_code + ')'}"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </tab>
+          </tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

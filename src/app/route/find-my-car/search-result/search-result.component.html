@@ -1,0 +1,23 @@
+<section class="container-fluid search-page px-0 ">
+  <div class="cb-container container">
+    <div class="row mx-0" *ngIf="count">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 px-sm-0 px-md-0">
+        <div class="search-result-img text-center">
+          <img src="assets/img/img-emotion.png" srcset="assets/img/img-emotion@2x.png 2x, assets/img/img-emotion@3x.png 3x" class="img_emotion">
+        </div>
+        <div class="search-text-msg">
+          <h3 class="mb-0">Great news! We have {{ count }} cars that match your search.<br/><br/></h3>
+          <p>
+            Please note that you are not purchasing a car. This is simply a request to purchase and is non-binding.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-0">
+      <div class="col-sm-12 col-xs-12 d-block text-center d-md-none px-0">
+        <a class="btn add-items-btn btn-block text-capitalize ">Next </a>
+        <a class="skip-link btn-block">Cancel Search</a>
+      </div>
+    </div>
+  </div>
+</section>

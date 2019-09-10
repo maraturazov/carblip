@@ -1,0 +1,49 @@
+<section class="navigation-container container-fluid">
+  <div class="cb-container container ">
+    <div class="row mx-0">
+      <div class="col-lg-4 col-md-4 col-sm-12 col-12  text-sm-center text-md-left text-left d-none d-sm-block px-0">
+        <h2 class="navigation-title text-capitalize mb-0">
+          {{subHeaderTitle}}
+        </h2>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 col-12  text-left px-0 d-flex justify-content-end">
+        <div class="search-box" *ngIf="showSearchBox">
+          <input [(ngModel)]="searchString" placeholder="Search" (keyup)="onKeyUp()" (keydown)="keyDown = true" (change)="search()">
+          <img src="assets/img/ic-search.png" (click)="search()">
+        </div>
+        <div id="stepper" class="bs-stepper w-100" *ngIf="!showSearchBox && showStepper">
+          <div class="row mx-0 bs-stepper-content p-0 w-100 d-block">
+            <div class="bs-stepper-header" role="tablist">
+              <ng-container *ngFor="let step of steps; let i = index" >
+                <div *ngIf="i > 0" class="line"></div>
+                <div
+                  [ngClass]="{
+                    'custom-step': completed(step.step, currentStep),
+                    'completed': completed(step.step, currentStep),
+                    'incompleted': !completed(step.step, currentStep),
+                    'active': step.step === currentStep
+                  }"
+                  [attr.data-target]="'#' + step.label"
+                >
+                  <a (click)="redirectTo(step.step)" class="btn btn-link step-trigger" role="tab" id="stepper{{i + 1}}trigger{{i + 1}}" [attr.aria-controls]="step.label">
+                    <span class="bs-stepper-circle"></span>
+                    <span class="bs-stepper-label">{{step.label}}</span>
+                  </a>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="text-right d-none d-md-block px-0" *ngIf="showCancelSearch">
+          <a class="cancel-link text-uppercase" routerLink="/find-my-car">Cancel Search</a>
+        </div>
+        <div class="ml-5 flex-shrink-0" *ngIf="showPrevButton">
+          <button class="btn btn-default navigation-btn-back" (click)="onPrevButtonClick()"><span class="image-container"><img src="assets/img/icon/right-arrow.svg"></span><span class="label">Back</span></button>
+        </div>
+        <div class="ml-5 flex-shrink-0" *ngIf="showNextButton">
+          <button class="btn btn-default navigation-btn" (click)="onNextButtonClick()"><span class="label">{{nextLabel}}</span><span class="image-container"><img src="assets/img/icon/right-arrow.svg"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

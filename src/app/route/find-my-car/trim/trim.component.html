@@ -1,0 +1,23 @@
+<section class="container-fluid px-0">
+  <div class="cb-container container">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12 px-0">
+      <div id="model" role="tabpanel" class="content">
+        <div class="row mx-0">
+          <div class="product-cntnr" *ngFor="let item of trims">
+            <div class="model-contianer row" [ngClass]="{'active': (selectedTrimId$ | async) == item.id}" (click)="onSelectTrim(item.id)" >
+              <div class="model-desc px-0 col-md-6 col-sm-6 col-6">
+                <h2>{{ item.trim }}</h2>
+                <p class="amt">{{ item.price | currency}} </p>
+                <p class="amt-label">Starting MSRP</p>
+              </div>
+              <div class="model-img px-0 col-lg-6 col-md-6 col-sm-6 col-6">
+                <img src="{{ item.image_url }}" [class.d-none]="!imageLoaded">
+                <i class="fa fa-spin fa-spinner lazy-loading" *ngIf="!imageLoaded"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

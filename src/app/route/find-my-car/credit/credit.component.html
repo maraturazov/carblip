@@ -1,0 +1,24 @@
+<section class="container-fluid  px-0 credit-assessment-page">
+  <div class="cb-container container">
+    <div class="row mx-0 main-content assessment-cards-container">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 px-0">
+        <div class="search-text-msg">
+          <p class="label-text">Please estimate your approximate credit score by selecting from one of the following
+            options:</p>
+        </div>
+
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 px-0">
+        <div class="row assessment-row">
+          <ng-container *ngFor="let credit of creditAssessmentList">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-12 assessment-card " [ngClass]="{'active': credit.id === selectedId}" (click)="onSelectScore(credit.id)">
+              <h3 class="assessment-title">{{credit.label}}</h3>
+              <p class="assessment-price">{{credit.score}}</p>
+              <p class="assessment-desc">{{credit.description}}</p>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

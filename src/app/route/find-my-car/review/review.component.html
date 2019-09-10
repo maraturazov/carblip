@@ -1,0 +1,185 @@
+<section class="container-fluid request-page px-0">
+  <div class="cb-container container">
+    <div class="row mx-0">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-content px-sm-0 px-md-0">
+        <div class="row mx-0">
+          <div class="col-lg-8 col-md-7 col-sm-12 col-12 pr-0  order-lg-2  order-md-2 product-desc">
+            <div class="row mx-0 product-title">
+              <div class="text-left px-0 title-p">
+                <p class="title text-uppercase">{{selectedBrand.name}} {{selectedModel.name}}</p>
+              </div>
+              <div class="text-right msrp-div">
+                <p class="amount ml-auto mr-0">
+                  <span class="triange-sect"></span>
+                  <span>{{selectedTrim.Brand.min_price | currency : 'USD' : 'symbol' : '1.0'}}</span>
+                  <span class="text-capitalize sub">Starting MSRP</span>
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <ul class="product-specs">
+                  <li>
+                    <div class="item">
+                      <p class="item-label text-capitalize mb-0">year</p>
+                      <p class="item-value text-uppercase mb-0">{{selectedTrim.year}}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item">
+                      <p class="item-label text-capitalize mb-0">make</p>
+                      <p class="item-value text-uppercase mb-0">{{selectedTrim.Brand.name}}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item">
+                      <p class="item-label text-capitalize mb-0">model</p>
+                      <p class="item-value text-uppercase mb-0">{{selectedModel.name}}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item">
+                      <p class="item-label text-capitalize mb-0">trim</p>
+                      <p class="item-value text-uppercase mb-0">{{selectedTrim.trim}}</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="row mx-0">
+              <div class="col-md-12">
+                <div class="img-container d-flex">
+                  <img src="{{backgroundImage$ | async}}" class="ic_A3" (load)="loadImage($event)" [class.d-none]="!loaded">
+                  <i class="fa fa-spin fa-spinner lazy-loading" *ngIf="!loaded"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-5 col-sm-12 col-12 order-lg-1 order-md-1 product-filters">
+            <form class="filter-form">
+              <fieldset class="form-group color-selection">
+                <div class="row">
+                  <legend class="col-form-label col-sm-12 form-label pt-0 pb-0">Exterior color</legend>
+                  <div class="col-sm-12">
+                    <ng-container *ngFor="let item of exteriorColors$ | async; let i = index">
+                      <ng-container *ngIf="exteriorSelectionStatus[i]">
+                        <input class="checkbox-inline bg-{{item.simple_color}}-check styled-checkbox" id="ext-{{ item.id }}" type="checkbox" value="" disabled checked>
+                        <label class=" form-check-label styled-checkbox-2 text-capitalize" for="ext-{{ item.id }}">
+                          <span class="background-color-span" [ngStyle] = "{ 'background-image': 'linear-gradient( to right, #' + item.color_hex_code + 'cc, #'+ item.color_hex_code + ')'}"></span>
+                        </label>
+                      </ng-container>
+                    </ng-container>
+                  </div>
+                </div>
+                <div class="row">
+                  <legend class="col-form-label col-sm-12 form-label pt-0 pb-0">Interior color</legend>
+                  <div class="col-sm-12">
+                    <ng-container *ngFor="let item of interiorColors$ | async; let i = index">
+                      <ng-container *ngIf="interiorSelectionStatus[i]">
+                        <input class="checkbox-inline bg-{{item.simple_color}}-check styled-checkbox" id="ext-{{ item.id }}" type="checkbox" value="" disabled checked>
+                        <label class=" form-check-label styled-checkbox-2 text-capitalize" for="ext-{{ item.id }}">
+                          <span class="background-color-span" [ngStyle] = "{ 'background-image': 'linear-gradient( to right, #' + item.color_hex_code + 'cc, #'+ item.color_hex_code + ')'}"></span>
+                        </label>
+                      </ng-container>
+                    </ng-container>
+                  </div>
+                </div>
+              </fieldset>
+              <div class="form-group ">
+                <legend class="col-form-label pt-0 form-label">Preferred options</legend>
+                <div class="form-check cb-check pl-0">
+                  <ng-container *ngFor="let option of options$ | async; let i = index">
+                    <ng-container *ngIf="selectionStatus[i]">
+                      <input class="form-check-input styled-checkbox" id="option-{{i + 1}}" type="checkbox" value="" disabled checked>
+                      <label class="form-check-label styled-checkbox-2 text-capitalize" for="option-{{i + 1}}">
+                        {{option.label}}
+                      </label>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label mb-0" for="exampleFormControlSelect1 form-label">How soon are you looking to
+                  buy?</label>
+                <div class="cst-select">
+                  <ng-select [items]="timeDropdownOptions"
+                    [ngModelOptions]="{standalone: true}"
+                    [searchable]="false"
+                    placeholder="Select"
+                    bindLabel="label"
+                    bindValue="id"
+                    [(ngModel)]="buyingTimeModel">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="form-group ">
+                <label class="form-label mb-0" for="exampleFormControlSelect1 form-label">What's your purchase
+                  preference?</label>
+                <div class="cst-select">
+                  <ng-select [items]="methodDropdownOptions"
+                    [ngModelOptions]="{standalone: true}"
+                    [searchable]="false"
+                    placeholder="Select"
+                    bindLabel="label"
+                    bindValue="id"
+                    [(ngModel)]="buyingMethodModel">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="mr-auto ml-auto text-center">
+                <button *ngIf="!promoCodeList.length" type="button" class="btn text-capitalize promo-btn" (click)="onAddPromoButtonClick()">Have
+                  a promo code</button>
+                <div class="result-promo" *ngIf="promoCodeList.length">
+                  <p id="code-count">{{getPromoCodeText()}}</p>
+                  <a (click)="onAddPromoButtonClick()" class="edit-btn">Edit Promo Code</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-0">
+      <div class="col-sm-12 col-xs-12 d-block text-center d-sm-none px-0">
+        <button class="btn add-items-btn btn-block text-capitalize ">Save
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- The Modal -->
+<ng-template #addPromoModal let-modal let-c="close" let-d="dismiss">
+    <div class="modal-content cb-model">
+      <!-- Modal Header -->
+      <div class="modal-header">
+          <h4 class="modal-title promo-head-text">Add Promo Code</h4>
+          <a class="close" data-dismiss="modal" (click)="onDismissAddPromoModal()"><img src="assets/img/close.png" class="ic_close"></a>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="text-center">
+            <div class="promo-inner">
+              <img src="assets/img/promocode.png" alt="">
+              <form id="promo-form">
+                <label for="promo" class="d-block ml-0  text-left">Promo Code</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="promoCodeInput" [(ngModel)]="promoCodeModel" placeholder="Promo Code" (keyup.enter)="onPromoCodeAdd()">
+                  <div class="input-add" id="addBtn" *ngIf="promoCodeModel">
+                    <button class="btn" type="button" (click)="onPromoCodeAdd()"><img src="assets/img/icon/add-button.svg"></button>
+                  </div>
+                </div>
+              </form>
+              <div class="promocode-value" *ngIf="newPromoCodeList.length">
+                <p class="promocode-label">Added Codes</p>
+                <ul id="promo-list">
+                  <li  *ngFor="let item of newPromoCodeList; let i = index"><button class="promo-delete-btn" (click)="onPromoCodeDelete(index)"></button><p>{{ item }}</p></li>
+                </ul>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+            <a class="btn btn-secondary ml-auto mr-auto d-block next-btn" (click)="onPromoCodeConfirm()">Next</a>
+          </div>
+        </div>
+    </div>
+  </ng-template>

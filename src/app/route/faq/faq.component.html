@@ -1,0 +1,20 @@
+<section class="container-fluid px-0">
+  <div class="cb-container container">
+    <div class="row  mx-0">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 px-0">
+        <ul id="faqs-list">
+          <li *ngFor="let question of faqs">
+            <div class="faq-list-item">
+              <div data-toggle="collapse" class="question-cntnr collapsed" [attr.data-target]="'#question' + question.id">
+                <p class="question-text">{{question.question}}</p>
+              </div>
+              <div id="{{'question' + question.id}}" class="answer-cntnr collapse">
+                <p class="answer-text">{{question.answer}}.</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
